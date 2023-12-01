@@ -1,8 +1,8 @@
 package domain.user;
 
 import domain.card.Card;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -11,11 +11,18 @@ import java.util.List;
 public class Dealer {
     private final List<Card> cards = new ArrayList<>();
 
-    public Dealer() {}
+    private Dealer() {
+    }
+
+    public static Dealer create() {
+        return new Dealer();
+    }
 
     public void addCard(Card card) {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(cards);
+    }
 }
