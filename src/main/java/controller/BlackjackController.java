@@ -36,6 +36,7 @@ public class BlackjackController {
         notifyAllParticipantsGetCards(players);
         showEachParticipantsCardStatus(dealer.getCards(), players);
         players.forEach(this::askPlayerToReceiveCard);
+        addOneCardIfDealerCardUnderSixteen(dealer);
     }
 
     private List<Player> generatePlayers() {
@@ -96,10 +97,15 @@ public class BlackjackController {
     }
 
     public void askPlayerToReceiveCard(Player player) {
-        boolean wantsToReceiveCard = getReceiveCardOrNot(player.getName());
+        String playerName = player.getName();
+        List<String> cardNames = new ArrayList<>();
+        boolean wantsToReceiveCard = getReceiveCardOrNot(playerName);
         while (wantsToReceiveCard && !player.cardsExceedsThreshold()) {
             player.addCard(CardSelector.selectCard());
-            wantsToReceiveCard = getReceiveCardOrNot(player.getName());
+            cardNames = player.getCards().stream()
+                    .map(Card::toString).toList();
+            outputView.showParticipantCardStatus(UserCardsDto.of(playerName, cardNames));
+            wantsToReceiveCard = getReceiveCardOrNot(playerName);
         }
     }
 
@@ -108,6 +114,12 @@ public class BlackjackController {
             outputView.askPlayerToReceiveCard(playerName);
             return inputView.getWantToReceiveCardOrNot();
         });
+    }
+
+    public void addOneCardIfDealerCardUnderSixteen(Dealer dealer) {
+        if (dealer.sumOfCardsUnderSixteen()) {
+            outputView.
+        }
     }
 
     private <T> T readUserInput(Supplier<T> supplier) {

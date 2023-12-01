@@ -1,5 +1,7 @@
 package domain.user;
 
+import static domain.constant.GameConstant.DEALER_SUM_OF_CARD_THRESHOLD;
+
 import domain.card.Card;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +22,12 @@ public class Dealer {
 
     public void addCard(Card card) {
         cards.add(card);
+    }
+
+    public boolean sumOfCardsUnderSixteen() {
+        return cards.stream()
+                .mapToInt(Card::getScore)
+                .sum() <= DEALER_SUM_OF_CARD_THRESHOLD;
     }
 
     public List<Card> getCards() {
