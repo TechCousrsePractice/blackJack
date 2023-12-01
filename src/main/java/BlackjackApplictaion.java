@@ -24,6 +24,7 @@ public class BlackjackApplictaion {
         Dealer dealer = new Dealer();
         playIntial(dealer, players);
         players.forEach(this::playPlayer);
+        playDealer(dealer);
     }
 
     private List<Player> generatePlayer(NamesDto requestNames) {
@@ -49,11 +50,19 @@ public class BlackjackApplictaion {
             Option option = inputView.requestOption(player.getName());
 
             if (option == Option.NO) {
+                outputView.displayPlayerCards(player);
                 break;
             }
 
             addCardsByCount(player, 1);
             outputView.displayPlayerCards(player);
+        }
+    }
+
+    private void playDealer(Dealer dealer) {
+        if (dealer.getScore() <= 16) {
+            addCardsByCount(dealer, 1);
+            outputView.displayDealerAdditionalMessage();
         }
     }
 

@@ -25,7 +25,13 @@ public class Dealer implements User {
 
     @Override
     public int getScore() {
-        return 0;
+        return cards.stream()
+                .map(Card::getScore)
+                .reduce(0, Integer::sum);
     }
 
+    @Override
+    public int getTotalScore() {
+        return 0;
+    }
 }
