@@ -9,19 +9,19 @@ public interface PositiveNumericCheckable {
 
     default void validateIsNumeric(String userInput) {
         try {
-            parseToInt(userInput);
+            parseToDouble(userInput);
         } catch (NumberFormatException e) {
             throw InputException.of(InputExceptionMessage.NOT_NUMERIC_TYPE.getMessage());
         }
     }
 
     default void validateIsPositive(String userInput) {
-        if (parseToInt(userInput) <= NUMERIC_INPUT_UNDER_LIMIT_VALUE.getNumber()) {
+        if (parseToDouble(userInput) <= NUMERIC_INPUT_UNDER_LIMIT_VALUE.getNumber()) {
             throw InputException.of(InputExceptionMessage.NUMERIC_INPUT_UNDER_LOWER_LIMIT.getMessage());
         }
     }
 
-    private int parseToInt(String userInput) {
-        return Integer.parseInt(userInput);
+    private double parseToDouble(String userInput) {
+        return Double.parseDouble(userInput);
     }
 }

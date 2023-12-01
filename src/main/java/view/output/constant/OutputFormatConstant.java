@@ -1,7 +1,7 @@
 package view.output.constant;
 
 public enum OutputFormatConstant {
-    ;
+    INSERT_BETTING_MONEY_FORMAT("%s의 배팅 금액은?");
 
     private final String format;
 

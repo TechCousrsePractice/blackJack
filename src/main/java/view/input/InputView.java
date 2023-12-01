@@ -15,6 +15,10 @@ public class InputView {
         return inputParser.parseToParticipantNames(readLine());
     }
 
+    public double getParticipantBettingMoney() {
+        return inputParser.parseToBettingMoney(readLine());
+    }
+
     public String readLine() {
         return Console.readLine();
     }
