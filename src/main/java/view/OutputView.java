@@ -21,7 +21,7 @@ public class OutputView {
         displayCards("딜러", card.toString());
     }
 
-    private void displayPlayerCards(Player player) {
+    public void displayPlayerCards(Player player) {
         List<String> cards = player.getCurrentCards().stream()
                 .map(Card::toString)
                 .toList();

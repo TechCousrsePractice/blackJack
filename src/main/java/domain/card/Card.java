@@ -36,4 +36,8 @@ public class Card {
         return symbol.getName() + type.getName();
     }
 
+    public int getScore() {
+        return symbol.getScore();
+    }
+
 }

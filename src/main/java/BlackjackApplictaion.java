@@ -1,3 +1,4 @@
+import domain.Option;
 import domain.card.Trump;
 import domain.user.Dealer;
 import domain.user.Player;
@@ -22,6 +23,7 @@ public class BlackjackApplictaion {
         List<Player> players = generatePlayer(requestNames);
         Dealer dealer = new Dealer();
         playIntial(dealer, players);
+        players.forEach(this::playPlayer);
     }
 
     private List<Player> generatePlayer(NamesDto requestNames) {
@@ -40,6 +42,19 @@ public class BlackjackApplictaion {
     private void addCardsByCount(User user, int count) {
         IntStream.range(0, count)
                 .forEach(attempt -> user.addCard(trump.getRandomCard()));
+    }
+
+    private void playPlayer(Player player) {
+        while (player.getScore() <= 21) {
+            Option option = inputView.requestOption(player.getName());
+
+            if (option == Option.NO) {
+                break;
+            }
+
+            addCardsByCount(player, 1);
+            outputView.displayPlayerCards(player);
+        }
     }
 
 }

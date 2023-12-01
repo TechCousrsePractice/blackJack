@@ -38,7 +38,9 @@ public class Player implements User {
 
     @Override
     public int getScore() {
-        return 0;
+        return cards.stream()
+                .map(Card::getScore)
+                .reduce(0, Integer::sum);
     }
 
     public String getName() {
