@@ -2,9 +2,10 @@ package domain.user;
 
 import domain.card.Card;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Player {
+public class Player implements User {
     private static final int MINIMUM_BETTING_MONEY_VALUE = 1;
     private final String name;
     private final double bettingMoney;
@@ -28,6 +29,20 @@ public class Player {
 
     public void addCard(Card card) {
         cards.add(card);
+    }
+
+    @Override
+    public List<Card> getCurrentCards() {
+        return Collections.unmodifiableList(cards);
+    }
+
+    @Override
+    public int getScore() {
+        return 0;
+    }
+
+    public String getName() {
+        return name;
     }
 
     // TODO function

@@ -18,6 +18,8 @@ public class Trump {
                 .map(Entry::getKey)
                 .toList();
 
-        return Randoms.shuffle(unusedCards).get(0);
+        Card card = Randoms.shuffle(unusedCards).get(0);
+        trump.replace(card, true);
+        return card;
     }
 }

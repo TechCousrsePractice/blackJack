@@ -4,7 +4,7 @@ import domain.card.Card;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dealer {
+public class Dealer implements User {
     private final List<Card> cards = new ArrayList<>();
 
     public Dealer() {
@@ -14,5 +14,18 @@ public class Dealer {
         cards.add(card);
     }
 
-    // TODO function
+    public Card getCard() {
+        return cards.get(0);
+    }
+
+    @Override
+    public List<Card> getCurrentCards() {
+        return null;
+    }
+
+    @Override
+    public int getScore() {
+        return 0;
+    }
+
 }
