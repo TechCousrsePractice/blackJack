@@ -19,6 +19,10 @@ public class InputView {
         return inputParser.parseToBettingMoney(readLine());
     }
 
+    public boolean getWantToReceiveCardOrNot() {
+        return inputParser.parseToReceiveCardOrNot(readLine());
+    }
+
     public String readLine() {
         return Console.readLine();
     }

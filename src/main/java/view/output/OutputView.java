@@ -1,5 +1,6 @@
 package view.output;
 
+import static view.output.constant.OutputFormatConstant.ASK_TO_RECEIVE_ONE_CARD;
 import static view.output.constant.OutputFormatConstant.DEALER_CARD_INIT_STATUS_SHOW_FORMAT;
 import static view.output.constant.OutputFormatConstant.INSERT_BETTING_MONEY_FORMAT;
 import static view.output.constant.OutputFormatConstant.NOTIFY_ALL_CARDS_ARE_DISTRIBUTED_FORMAT;
@@ -25,6 +26,7 @@ public class OutputView {
     }
 
     public void notifyALlParticipantsGetCards(List<String> participantNames) {
+        printLine();
         String notifyFormat = String.format(NOTIFY_ALL_CARDS_ARE_DISTRIBUTED_FORMAT.getFormat(),
                 generateDynamicFormatString(participantNames.size()));
         print(String.format(notifyFormat, participantNames.toArray()));
@@ -43,6 +45,11 @@ public class OutputView {
                     printLine();
                 }
         );
+    }
+
+    public void askPlayerToReceiveCard(String playerName) {
+        printLine();
+        print(String.format(ASK_TO_RECEIVE_ONE_CARD.getFormat(), playerName));
         printLine();
     }
 

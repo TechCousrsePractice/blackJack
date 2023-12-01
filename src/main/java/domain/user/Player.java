@@ -1,5 +1,7 @@
 package domain.user;
 
+import static domain.constant.GameConstant.SUM_OF_CARD_THRESHOLD;
+
 import domain.card.Card;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,6 +28,12 @@ public class Player {
         cards.add(card);
     }
 
+    public boolean cardsExceedsThreshold() {
+        return cards.stream()
+                .mapToInt(Card::getScore)
+                .sum() >= SUM_OF_CARD_THRESHOLD;
+    }
+
     public String getName() {
         return name;
     }
@@ -33,5 +41,4 @@ public class Player {
     public List<Card> getCards() {
         return Collections.unmodifiableList(cards);
     }
-
 }

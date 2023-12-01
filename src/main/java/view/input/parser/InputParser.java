@@ -9,17 +9,20 @@ import java.util.List;
 import view.input.validator.BettingMoneyInputValidator;
 import view.input.validator.ParticipantNameInputValidator;
 import view.input.validator.ParticipantNamesInputValidator;
+import view.input.validator.ReceiveCardOrNotInputValidator;
 
 public class InputParser {
     // 각 Input Validator 선언.
     private final ParticipantNamesInputValidator participantNamesInputValidator;
     private final ParticipantNameInputValidator participantNameInputValidator;
     private final BettingMoneyInputValidator bettingMoneyInputValidator;
+    private final ReceiveCardOrNotInputValidator receiveCardOrNotInputValidator;
 
     public InputParser() {
         this.participantNamesInputValidator = new ParticipantNamesInputValidator();
         this.participantNameInputValidator = new ParticipantNameInputValidator();
         this.bettingMoneyInputValidator = new BettingMoneyInputValidator();
+        this.receiveCardOrNotInputValidator = new ReceiveCardOrNotInputValidator();
     }
 
 
@@ -36,10 +39,20 @@ public class InputParser {
         return parseToDouble(userInput);
     }
 
+    public boolean parseToReceiveCardOrNot(String userInput) {
+        userInput = removeBlank(userInput);
+        receiveCardOrNotInputValidator.validate(userInput);
+        return parseToBoolean(userInput);
+    }
+
     private List<String> parseToStringsTrimmed(String userInput) {
         return Arrays.stream(userInput.split(PARTICIPANT_NAME_DELIMITER.getSymbol()))
                 .map(this::trimBlank)
                 .toList();
+    }
+
+    private boolean parseToBoolean(String userInput) {
+        return "y".equals(userInput);
     }
 
     private void validateEachParticipantName(String userInput) {
