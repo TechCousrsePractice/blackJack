@@ -1,7 +1,6 @@
 package domain.user;
 
 import domain.card.Card;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +12,22 @@ public class Player {
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
 
-    public Player(String name, double bettingMoney) {
+    private Player(String name, double bettingMoney) {
         this.name = name;
         this.bettingMoney = bettingMoney;
+    }
+
+    public static Player of(String name, final double bettingMoney) {
+        return new Player(name, bettingMoney);
     }
 
     public void addCard(Card card) {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
+    @Override
+    public String toString() {
+        return "name = " + name + " , bettingMoney = " + bettingMoney;
+    }
 
 }

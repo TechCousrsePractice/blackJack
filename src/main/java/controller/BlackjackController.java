@@ -1,6 +1,8 @@
 package controller;
 
+import domain.user.Player;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 import view.input.InputView;
@@ -17,14 +19,25 @@ public class BlackjackController {
     }
 
     public void execute() {
+        List<Player> players = generatePlayers();
+        players.forEach(
+                player -> {
+                    System.out.println(player.toString());
+                }
+        );
+    }
+
+    private List<Player> generatePlayers() {
+        List<Player> players = new ArrayList<>();
+
         List<String> participantNames = getParticipantsNames();
-        List<Double> eachParticipantBettingMoney = new ArrayList<>();
-        for (String participantName : participantNames) {
-            eachParticipantBettingMoney.add(getParticipantsBettingMoney(participantName));
-        }
-        participantNames.forEach(pN -> System.out.print(pN + "\t"));
-        System.out.println();
-        eachParticipantBettingMoney.forEach(ePBM -> System.out.print(ePBM + "\t"));
+        participantNames.forEach(
+                participantName -> {
+                    players.add(Player.of(participantName, getParticipantsBettingMoney(participantName)));
+                }
+        );
+
+        return Collections.unmodifiableList(players);
     }
 
     private List<String> getParticipantsNames() {
