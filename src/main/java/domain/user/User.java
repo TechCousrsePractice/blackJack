@@ -9,4 +9,8 @@ public interface User {
     List<Card> getCurrentCards();
 
     int getScore();
+
+    boolean isExplode();
+
+    boolean isBlackjack();
 }

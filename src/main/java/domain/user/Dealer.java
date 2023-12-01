@@ -38,6 +38,16 @@ public class Dealer implements User {
                 .get();
     }
 
+    @Override
+    public boolean isExplode() {
+        return getScores().isEmpty();
+    }
+
+    @Override
+    public boolean isBlackjack() {
+        return cards.size() == 2 && getScores().contains(21);
+    }
+
     private List<Integer> getScores() {
         List<Integer> scores = List.of(0);
         for (Card card : cards) {

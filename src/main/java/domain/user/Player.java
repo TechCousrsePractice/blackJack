@@ -41,13 +41,23 @@ public class Player implements User {
     public int getScore() {
         List<Integer> scores = getScores();
 
-        if (scores.size() == 0) {
+        if (scores.isEmpty()) {
             return 22;
         }
 
         return scores.stream()
                 .max(Integer::compareTo)
                 .get();
+    }
+
+    @Override
+    public boolean isExplode() {
+        return getScores().isEmpty();
+    }
+
+    @Override
+    public boolean isBlackjack() {
+        return cards.size() == 2 && getScores().contains(21);
     }
 
     private List<Integer> getScores() {
@@ -76,6 +86,10 @@ public class Player implements User {
 
     public String getName() {
         return name;
+    }
+
+    public double getBettingMoney() {
+        return bettingMoney;
     }
 
     // TODO function
