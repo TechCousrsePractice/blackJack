@@ -18,19 +18,26 @@ public class Mapper {
     }
 
     private static void validatePlayerNameRequest(List<String> requestNames) {
-        requestNames.forEach(Mapper::validateEmpty);
+        requestNames.forEach(Mapper::validateBlank);
+        validateEmpty(requestNames);
         validateUnique(requestNames);
     }
 
-    private static void validateEmpty(String request) {
+    private static void validateEmpty(List<String> requestNames) {
+        if (requestNames.size() == 0) {
+            throw new IllegalArgumentException("빈 입력");
+        }
+    }
+
+    private static void validateBlank(String request) {
         if (request.isBlank()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("빈 입력");
         }
     }
 
     private static void validateUnique(List<String> requestNames) {
         if (isNotUnique(requestNames)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("이름 중복");
         }
     }
 
