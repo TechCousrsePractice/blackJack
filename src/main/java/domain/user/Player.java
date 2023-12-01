@@ -30,4 +30,8 @@ public class Player {
         return "name = " + name + " , bettingMoney = " + bettingMoney;
     }
 
+    public String getName() {
+        return name;
+    }
+
 }

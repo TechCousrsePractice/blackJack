@@ -25,6 +25,10 @@ public class BlackjackController {
                     System.out.println(player.toString());
                 }
         );
+        List<String> playerNames = players.stream()
+                .map(Player::getName)
+                .toList();
+        outputView.notifyALlParticipantsGetCards(playerNames);
     }
 
     private List<Player> generatePlayers() {
