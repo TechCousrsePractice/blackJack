@@ -25,6 +25,7 @@ public class BlackjackApplictaion {
         playIntial(dealer, players);
         players.forEach(this::playPlayer);
         playDealer(dealer);
+        displayResult(dealer, players);
     }
 
     private List<Player> generatePlayer(NamesDto requestNames) {
@@ -50,20 +51,24 @@ public class BlackjackApplictaion {
             Option option = inputView.requestOption(player.getName());
 
             if (option == Option.NO) {
-                outputView.displayPlayerCards(player);
+                outputView.displayPlayerCards(player.getCurrentCards(), player.getName());
                 break;
             }
 
             addCardsByCount(player, 1);
-            outputView.displayPlayerCards(player);
+            outputView.displayPlayerCards(player.getCurrentCards(), player.getName());
         }
     }
 
     private void playDealer(Dealer dealer) {
-        if (dealer.getScore() <= 16) {
+        if (dealer.canGetAdditionalCard()) {
             addCardsByCount(dealer, 1);
             outputView.displayDealerAdditionalMessage();
         }
+    }
+
+    private void displayResult(Dealer dealer, List<Player> players) {
+        outputView.displayResults(dealer, players);
     }
 
 }

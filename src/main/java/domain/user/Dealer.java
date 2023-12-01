@@ -1,7 +1,9 @@
 package domain.user;
 
 import domain.card.Card;
+import domain.card.Symbol;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Dealer implements User {
@@ -20,18 +22,51 @@ public class Dealer implements User {
 
     @Override
     public List<Card> getCurrentCards() {
-        return null;
+        return Collections.unmodifiableList(cards);
     }
 
     @Override
     public int getScore() {
-        return cards.stream()
-                .map(Card::getScore)
-                .reduce(0, Integer::sum);
+        List<Integer> scores = getScores();
+
+        if (scores.size() == 0) {
+            return 22;
+        }
+
+        return scores.stream()
+                .max(Integer::compareTo)
+                .get();
     }
 
-    @Override
-    public int getTotalScore() {
-        return 0;
+    private List<Integer> getScores() {
+        List<Integer> scores = List.of(0);
+        for (Card card : cards) {
+            List<Integer> addScore = getAddScore(card);
+            scores = scores.stream()
+                    .flatMap(score -> addScore.stream().map(adder -> score + adder))
+                    .toList();
+        }
+
+        return scores.stream()
+                .filter(score -> score <= 21)
+                .toList();
+    }
+
+    private List<Integer> getAddScore(Card card) {
+        List<Integer> addScore = new ArrayList<>();
+        addScore.add(card.getScore());
+        if (card.isEqualSymbol(Symbol.ACE)) {
+            addScore.add(11);
+        }
+
+        return addScore;
+    }
+
+    public boolean canGetAdditionalCard() {
+        List<Integer> scores = getScores();
+
+        return scores.stream()
+                .filter(score -> score <= 16)
+                .count() > 0;
     }
 }

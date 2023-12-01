@@ -40,4 +40,8 @@ public class Card {
         return symbol.getScore();
     }
 
+    public boolean isEqualSymbol(Symbol symbol) {
+        return this.symbol == symbol;
+    }
+
 }
