@@ -1,6 +1,7 @@
 package view.input;
 
 import camp.nextstep.edu.missionutils.Console;
+import java.util.List;
 import view.input.parser.InputParser;
 
 public class InputView {
@@ -8,6 +9,10 @@ public class InputView {
 
     public InputView() {
         this.inputParser = new InputParser();
+    }
+
+    public List<String> getParticipantNames() {
+        return inputParser.parseToParticipantNames(readLine());
     }
 
     public String readLine() {

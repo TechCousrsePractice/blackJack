@@ -10,6 +10,11 @@ public class OutputView {
         printLine();
     }
 
+    public void printError(String message) {
+        print(message);
+        printLine();
+    }
+
     private void print(String message) {
         System.out.print(message);
     }
