@@ -1,16 +1,18 @@
 package view.validate;
 
+import static global.constants.NO;
+import static global.constants.YES;
 import static java.lang.Integer.parseInt;
 import static view.constants.InputConstants.ENTER_SEPARATION;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Pattern;
 import view.constants.ErrorMessage;
 
 public class InputValidate {
+
     private static final Pattern NON_ALPHABETIC = Pattern.compile("[a-zA-Z가-힣]+");
     private InputValidate() {}
 
@@ -25,10 +27,8 @@ public class InputValidate {
                 .map(NON_ALPHABETIC::matcher)
                 .forEach(matcher -> {
                     while (matcher.find()) {
-                        String group = matcher.group();
-                        nonAlphabeticParts.add(group);
-                    }
-                });
+                        nonAlphabeticParts.add(matcher.group());
+                    }});
 
         return nonAlphabeticParts;
     }
@@ -43,7 +43,7 @@ public class InputValidate {
     }
 
     public String isYesOrNo(String enterYesOrNo) {
-        if(enterYesOrNo.equals("y") || enterYesOrNo.equals("n")){
+        if(enterYesOrNo.equals(YES) || enterYesOrNo.equals(NO)){
             return enterYesOrNo;
         }
         throw new IllegalArgumentException(ErrorMessage.IS_YES_OR_NO.getMessage());
