@@ -1,6 +1,6 @@
 import domain.card.Trump;
 import domain.user.Player;
-import dto.PlayersDto;
+import dto.NamesDto;
 import java.util.List;
 import view.InputView;
 
@@ -13,9 +13,11 @@ public class BlackjackApplictaion {
     }
 
     public void start() {
-        PlayersDto requestPlayers = inputView.requestPlayerName();
-        List<Player> players = requestPlayers.names().stream()
-                .map(Player::from)
+        NamesDto requestNames = inputView.requestPlayerName();
+        List<Player> players = requestNames.names().stream()
+                .map(inputView::requestBettingMoney)
+                .map(playerDto -> Player.of(playerDto.name(), playerDto.bettingMoney()))
                 .toList();
+
     }
 }

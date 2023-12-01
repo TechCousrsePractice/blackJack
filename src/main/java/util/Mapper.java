@@ -1,20 +1,24 @@
 package util;
 
-import dto.PlayersDto;
+import dto.NamesDto;
+import dto.PlayerDto;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class Mapper {
     private static final String NAME_DELEMITER = ",";
 
-    public static PlayersDto toPlayerDto(String request) {
+    private static final Pattern NUMERIC = Pattern.compile("[0-9]+");
+
+    public static NamesDto toNamesDto(String request) {
         List<String> requestNames = Stream.of(request.split(NAME_DELEMITER))
                 .map(String::trim)
                 .toList();
 
         validatePlayerNameRequest(requestNames);
 
-        return new PlayersDto(requestNames);
+        return new NamesDto(requestNames);
     }
 
     private static void validatePlayerNameRequest(List<String> requestNames) {
@@ -24,7 +28,7 @@ public class Mapper {
     }
 
     private static void validateEmpty(List<String> requestNames) {
-        if (requestNames.size() == 0) {
+        if (requestNames.isEmpty()) {
             throw new IllegalArgumentException("빈 입력");
         }
     }
@@ -45,5 +49,25 @@ public class Mapper {
         return requestNames.stream()
                 .distinct()
                 .count() != requestNames.size();
+    }
+
+    public static PlayerDto toPlayerDto(String name, String requestMoney) {
+        validateRequestMoney(requestMoney);
+        return new PlayerDto(name, toInt(requestMoney));
+    }
+
+    private static void validateRequestMoney(String requestMoney) {
+        validateBlank(requestMoney);
+        validateNumeric(requestMoney);
+    }
+
+    private static void validateNumeric(String request) {
+        if (!NUMERIC.matcher(request).matches()) {
+            throw new IllegalArgumentException("숫자가 아님");
+        }
+    }
+
+    private static int toInt(String request) {
+        return Integer.parseInt(request);
     }
 }
