@@ -19,11 +19,13 @@ public class InputView {
     }
 
     public PlayerDto requestBettingMoney(String name) {
+        System.out.println();
         System.out.println(String.format(REQUEST_BETTING_MONEY_MESSAGE, name));
         return Mapper.toPlayerDto(name, readLine());
     }
 
     public Option requestOption(String name) {
+        System.out.println();
         System.out.println(String.format(REQUEST_OPTION_MESSAGE, name));
         Optional<Option> option = Option.findOption(readLine());
 

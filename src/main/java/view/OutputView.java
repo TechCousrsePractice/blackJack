@@ -53,10 +53,12 @@ public class OutputView {
     }
 
     public void displayDealerAdditionalMessage() {
+        System.out.println();
         System.out.println(DEALER_ADDITIONAL_MESSAGE);
     }
 
     public void displayResults(Dealer dealer, List<Player> players) {
+        System.out.println();
         System.out.println(getResultMessage("딜러 카드", dealer));
         players.forEach(
                 player -> System.out.println(getResultMessage(player.getName() + "카드", player)));
@@ -69,6 +71,7 @@ public class OutputView {
     }
 
     public void displayTotalProfits(List<ResultDto> results) {
+        System.out.println();
         System.out.println("## 최종 수익");
         double dealerProfit = -results.stream()
                 .map(ResultDto::profit)
