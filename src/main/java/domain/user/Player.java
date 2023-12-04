@@ -1,7 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
-
+import domain.util.Constant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +22,33 @@ public class Player {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
+    public String getCurrentlyCard() {
+        return String.join(Constant.SEPARATOR, cards.stream()
+                .map(Card::getCardName)
+                .toList());
+    }
 
+    public int getCardSum() {
+        return cards.stream()
+                .mapToInt(Card::getCardNumber)
+                .sum();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    // betting money를 조작하기 위해 get을 사용 안하고
+    // win, loose, draw method 제작을 하고싶으나 final일 경우 어떻게 하면 좋은지
+    public double win() {
+        return bettingMoney * 1.5;
+    }
+
+    public double lose() {
+        return 0;
+    }
+
+    public double draw() {
+        return bettingMoney;
+    }
 }

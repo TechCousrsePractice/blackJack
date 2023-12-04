@@ -15,12 +15,32 @@ public class Card {
         this.type = type;
     }
 
-    // TODO Card 관련 추가 기능 구현
+    public String getCardName() {
+        return getSymbolName() + type.getKoName();
+    }
+
+    private String getSymbolName() {
+        return switch (symbol.name()) {
+            case "ACE" -> "A";
+            case "JACK" -> "J";
+            case "QUEEN" -> "Q";
+            case "KING" -> "K";
+            default -> Integer.toString(symbol.getScore());
+        };
+    }
+
+    public int getCardNumber() {
+        return symbol.getScore();
+    }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Card card = (Card) o;
         return symbol == card.symbol &&
                 type == card.type;
