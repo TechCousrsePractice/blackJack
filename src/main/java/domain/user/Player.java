@@ -1,7 +1,7 @@
 package domain.user;
 
 import domain.card.Card;
-
+import domain.util.Constant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +22,14 @@ public class Player {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
+    public String getCurrentlyCard() {
+        return String.join(Constant.SEPARATOR, cards.stream()
+                .map(Card::getCardName)
+                .toList());
+    }
+
+    public String getName() {
+        return name;
+    }
 
 }

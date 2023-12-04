@@ -1,19 +1,24 @@
 package domain.view.constant;
 
-public enum InputViewMessage implements ViewMessage {
-    ASK_MEMBER("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)"),
-    ASK_BETTING_MONEY("%s의 배팅 금액은?"),
+public enum OutputViewMessage implements ViewMessage {
+    CARD_DISTRIBUTION("딜러와 %s에게 2장을 나누었습니다."),
+    DEALER_CARD("딜러: %s"),
+    PLAYER_CARD("%s카드: %s"),
     ;
 
     private final String message;
 
-    InputViewMessage(String message) {
+    OutputViewMessage(String message) {
         this.message = message;
     }
 
     @Override
     public void renderAndPrint(String s) {
         System.out.printf(message + System.lineSeparator(), s);
+    }
+    
+    public void renderAndPrint(String s1, String s2) {
+        System.out.printf(message + System.lineSeparator(), s1, s2);
     }
 
     @Override
