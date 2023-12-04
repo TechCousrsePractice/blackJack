@@ -29,10 +29,6 @@ public class Card {
         return value.getValueName();
     }
 
-    public Shape getShape() {
-        return shape;
-    }
-
     public String getShapeName() {
         return shape.getShapeName();
     }

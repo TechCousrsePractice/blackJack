@@ -3,21 +3,26 @@ package blackjack.domain.card;
 import blackjack.domain.Constants;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Cards {
-    private List<Card> cards;
+    private final List<Card> cards;
 
     private Cards(List<Card> cards) {
         this.cards = cards;
     }
 
     public static Cards of(Card... cards) {
-        return new Cards(new ArrayList<>(List.of(cards)));
+        return new Cards(Arrays.asList(cards));
     }
 
     public void add(Card card) {
         this.cards.add(card);
+    }
+
+    public boolean isInitialSize() {
+        return cards.size() == Constants.INITIAL_CARD_SIZE;
     }
 
     public boolean isBlackjack() {
@@ -54,9 +59,5 @@ public class Cards {
 
     public List<Card> getCards() {
         return cards;
-    }
-
-    public boolean isInitialSize() {
-        return cards.size() == Constants.INITIAL_CARD_SIZE;
     }
 }

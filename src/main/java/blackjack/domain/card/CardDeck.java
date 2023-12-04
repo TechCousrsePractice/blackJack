@@ -36,4 +36,8 @@ public class CardDeck {
         }
         return cards.remove(cards.size() - 1);
     }
+
+    public List<Card> getCards() {
+        return List.copyOf(cards);
+    }
 }

@@ -6,7 +6,7 @@ import static blackjack.exception.ErrorMessage.INVALID_CARD_SHAPE;
 import static blackjack.exception.ErrorMessage.INVALID_CARD_VALUE;
 
 public enum Value {
-    ACE("A", 1, 11),
+    ACE("A", 11, 1),
     TWO("2", 2, 0),
     THREE("3", 3, 0),
     FOUR("4", 4, 0),

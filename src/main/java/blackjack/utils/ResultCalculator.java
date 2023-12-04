@@ -7,6 +7,7 @@ import blackjack.dto.PlayerProfitDto;
 import blackjack.dto.ProfitDto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ResultCalculator {
     private static final double INITIAL_BLACKJACK_PROFIT_RATE = 1.5;
@@ -19,7 +20,7 @@ public class ResultCalculator {
         double dealerProfit = players.getTotalBet() - sumOfPlayerReturns;
         List<PlayerProfitDto> playerProfits = players.getPlayers().stream()
                 .map(player -> new PlayerProfitDto(player.getName(), calculateReturns(dealer, player) - player.getBettingAmount()))
-                .toList();
+                .collect(Collectors.toList());
         return new ProfitDto(dealerProfit, playerProfits);
     }
 
