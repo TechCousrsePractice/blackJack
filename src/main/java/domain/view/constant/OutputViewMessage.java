@@ -7,7 +7,8 @@ public enum OutputViewMessage implements ViewMessage {
     DEALER_DRAW("딜러는 16이하라 한 장의 카드를 더 받았습니다."),
     PLAYER_CARD_RESULT("%s카드: %s - 결과: %d"),
     DEALER_CARD_RESULT("딜러 카드: %s - 결과: %d"),
-    ;
+    PROFIT("## 최종 수익"),
+    PROFIT_RESULT("%s: %d");
 
     private final String message;
 

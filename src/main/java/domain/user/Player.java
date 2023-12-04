@@ -38,4 +38,17 @@ public class Player {
         return name;
     }
 
+    // betting money를 조작하기 위해 get을 사용 안하고
+    // win, loose, draw method 제작을 하고싶으나 final일 경우 어떻게 하면 좋은지
+    public double win() {
+        return bettingMoney * 1.5;
+    }
+
+    public double lose() {
+        return 0;
+    }
+
+    public double draw() {
+        return bettingMoney;
+    }
 }

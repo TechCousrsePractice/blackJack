@@ -31,4 +31,12 @@ public class OutputView {
     public void printDealerCardResult(Dealer dealer) {
         OutputViewMessage.DEALER_CARD_RESULT.renderAndPrint(dealer.getCurrentlyCards(), dealer.getCardSum());
     }
+
+    public void printProfit() {
+        OutputViewMessage.PROFIT.printLine();
+    }
+
+    public void printProfitResult(String name, int money) {
+        OutputViewMessage.PROFIT_RESULT.renderAndPrint(name, money);
+    }
 }
