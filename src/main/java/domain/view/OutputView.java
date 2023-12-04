@@ -17,4 +17,18 @@ public class OutputView {
     public void printPlayerCard(Player player) {
         OutputViewMessage.PLAYER_CARD.renderAndPrint(player.getName(), player.getCurrentlyCard());
     }
+
+    public void printDealerDraw() {
+        System.out.println();
+        OutputViewMessage.DEALER_DRAW.print();
+    }
+
+    public void printPlayerCardResult(Player player) {
+        OutputViewMessage.PLAYER_CARD_RESULT.renderAndPrint(player.getName(), player.getCurrentlyCard(),
+                player.getCardSum());
+    }
+
+    public void printDealerCardResult(Dealer dealer) {
+        OutputViewMessage.DEALER_CARD_RESULT.renderAndPrint(dealer.getCurrentlyCards(), dealer.getCardSum());
+    }
 }

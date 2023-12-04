@@ -23,6 +23,10 @@ public class Dealer {
                 .forEach(i -> i.addCard(pickCardInDeck(cards)));
     }
 
+    public void distributeCardToPlayer(List<Card> cards, Player player) {
+        player.addCard(pickCardInDeck(cards));
+    }
+
     private Card pickCardInDeck(List<Card> cards) {
         return cards.get(Constant.CARD_INDEX++);
     }
@@ -31,5 +35,11 @@ public class Dealer {
         return String.join(Constant.SEPARATOR, cards.stream()
                 .map(Card::getCardName)
                 .toList());
+    }
+    
+    public int getCardSum() {
+        return cards.stream()
+                .mapToInt(Card::getCardNumber)
+                .sum();
     }
 }

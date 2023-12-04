@@ -14,6 +14,8 @@ import java.util.stream.IntStream;
 
 public class BlackJackPlay {
     private final static int START_INDEX = 0;
+    private final static int DRAWING_CARD_BASED = 16;
+    private final static int BLACK_JACK = 21;
     private final static InputView inputView = new InputView();
     private final static OutputView outputView = new OutputView();
 
@@ -44,7 +46,9 @@ public class BlackJackPlay {
 
     private void playBlackJack(Dealer dealer, Players players) {
         List<Card> deck = setTable(dealer, players);
-
+        pickCard(dealer, players, deck);
+        pickCard(dealer, deck);
+        printCardResult(dealer, players);
     }
 
     private List<Card> setTable(Dealer dealer, Players players) {
@@ -67,5 +71,26 @@ public class BlackJackPlay {
                 .forEach(outputView::printPlayerCard);
     }
 
+    private void pickCard(Dealer dealer, Players players, List<Card> deck) {
+        players.getPlayers().forEach(i -> {
+            while (i.getCardSum() <= BLACK_JACK && inputView.reDrawCard(i)) {
+                dealer.distributeCardToPlayer(deck, i);
+                outputView.printPlayerCard(i);
+                System.out.println();
+            }
+        });
+    }
 
+    private void pickCard(Dealer dealer, List<Card> deck) {
+        if (dealer.getCardSum() <= DRAWING_CARD_BASED) {
+            outputView.printDealerDraw();
+            dealer.addCard(deck);
+        }
+    }
+
+    private void printCardResult(Dealer dealer, Players players) {
+        outputView.printDealerCardResult(dealer);
+        players.getPlayers()
+                .forEach(outputView::printPlayerCardResult);
+    }
 }

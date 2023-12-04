@@ -28,6 +28,12 @@ public class Player {
                 .toList());
     }
 
+    public int getCardSum() {
+        return cards.stream()
+                .mapToInt(Card::getCardNumber)
+                .sum();
+    }
+
     public String getName() {
         return name;
     }

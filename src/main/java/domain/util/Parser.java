@@ -14,7 +14,7 @@ public class Parser {
         try {
             return parseNames(removeBlank(names).split(DELIMITER));
         } catch (PatternSyntaxException e) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getErrorMessage());
         }
     }
 
@@ -34,5 +34,13 @@ public class Parser {
     public static String removeBlank(String s) {
         return s.trim()
                 .replaceAll(BLANK, EMPTY);
+    }
+
+    public static String parseYAndN(String yAndN) {
+        try {
+            return removeBlank(yAndN);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(ErrorMessage.INVALID_INPUT.getErrorMessage());
+        }
     }
 }
