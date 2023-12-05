@@ -8,7 +8,10 @@ import domain.card.Card;
 import domain.user.Dealer;
 import domain.user.Player;
 import domain.util.CardSelector;
+import dto.DealerCardsAndScoreDto;
 import dto.EachParticipantsCardStatusDto;
+import dto.PlayerCardsAndScoreDto;
+import dto.PlayersCardsAndScoresDto;
 import dto.UserCardsDto;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +32,7 @@ public class BlackjackController {
     }
 
     public void execute() {
-        Dealer dealer = Dealer.create();
+        Dealer dealer = new Dealer();
         List<Player> players = generatePlayers();
 
         drawCard(dealer, players);
@@ -118,8 +121,22 @@ public class BlackjackController {
 
     public void addOneCardIfDealerCardUnderSixteen(Dealer dealer) {
         if (dealer.sumOfCardsUnderSixteen()) {
-            outputView.
+            outputView.showDealerGotOneCard();
+            dealer.addCard(CardSelector.selectCard());
         }
+    }
+
+    public void showAllCardsAndScores(Dealer dealer, List<Player> players) {
+        List<String> dealerCardNames = dealer.getCards().stream()
+                .map(Card::toString).toList();
+        List<PlayerCardsAndScoreDto> playerCardsAndScoresDtos = players.stream()
+                .map(player ->
+                        PlayerCardsAndScoreDto.of(player.getName(), player.getCards().stream()
+                                .map(Card::toString)
+                                .toList(), player.produceScore()))
+                .toList();
+        outputView.showAllCardsAndScore(DealerCardsAndScoreDto.of(dealerCardNames, dealer.produceScore()),
+                PlayersCardsAndScoresDto.from());
     }
 
     private <T> T readUserInput(Supplier<T> supplier) {

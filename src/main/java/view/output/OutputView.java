@@ -6,13 +6,17 @@ import static view.output.constant.OutputFormatConstant.INSERT_BETTING_MONEY_FOR
 import static view.output.constant.OutputFormatConstant.NOTIFY_ALL_CARDS_ARE_DISTRIBUTED_FORMAT;
 import static view.output.constant.OutputFormatConstant.PLAYER_CARD_AFTER_STATUS_SHOW_FORMAT;
 import static view.output.constant.OutputFormatConstant.PLAYER_CARD_INIT_STATUS_SHOW_FORMAT;
+import static view.output.constant.OutputFormatConstant.SCORE_OUTPUT_FORMAT;
+import static view.output.constant.OutputMessageConstant.DEALER_CARD_SHOW_FORMAT;
 import static view.output.constant.OutputMessageConstant.DEALER_GOT_ONE_CARD;
 import static view.output.constant.OutputMessageConstant.INSERT_PARTICIPANT_NAME;
 import static view.output.constant.OutputNumberConstant.PLAYER_FIRST_CARD_INDEX;
 import static view.output.constant.OutputNumberConstant.PLAYER_SECOND_CARD_INDEX;
 import static view.output.constant.OutputSymbolConstant.NEW_LINE;
 
+import dto.DealerCardsAndScoreDto;
 import dto.EachParticipantsCardStatusDto;
+import dto.PlayersCardsAndScoresDto;
 import dto.UserCardsDto;
 import java.util.List;
 
@@ -67,6 +71,23 @@ public class OutputView {
         printLine();
         print(DEALER_GOT_ONE_CARD.getMessage());
         printLine();
+    }
+
+    public void showAllCardsAndScore(DealerCardsAndScoreDto dealerCardsAndScoreDto,
+                                     PlayersCardsAndScoresDto playersCardsAndScoresDto) {
+        print(DEALER_CARD_SHOW_FORMAT.getMessage());
+        print(String.format(generateDynamicFormatString(dealerCardsAndScoreDto.getCardSize()),
+                dealerCardsAndScoreDto.cardNames().toArray()));
+        print(String.format(SCORE_OUTPUT_FORMAT.getFormat(), dealerCardsAndScoreDto.score()));
+
+        playersCardsAndScoresDto.playerCardsAndScoreDtos()
+                .forEach(playerCardsAndScoreDto -> {
+                    print(String.format(PLAYER_CARD_AFTER_STATUS_SHOW_FORMAT.getFormat(),
+                            playerCardsAndScoreDto.playerName()));
+                    print(String.format(generateDynamicFormatString(playerCardsAndScoreDto.getCardSize()),
+                            playerCardsAndScoreDto.cardNames().toArray()));
+                    print(String.format(SCORE_OUTPUT_FORMAT.getFormat(), playerCardsAndScoreDto.score()));
+                });
     }
 
     public void printError(String message) {

@@ -3,6 +3,7 @@ package domain.user;
 import static domain.constant.GameConstant.SUM_OF_CARD_THRESHOLD;
 
 import domain.card.Card;
+import domain.util.ScoreCalculator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,6 +33,10 @@ public class Player {
         return cards.stream()
                 .mapToInt(Card::getScore)
                 .sum() >= SUM_OF_CARD_THRESHOLD;
+    }
+
+    public int produceScore() {
+        return ScoreCalculator.calculateScore(cards);
     }
 
     public String getName() {

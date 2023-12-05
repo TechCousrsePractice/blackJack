@@ -19,6 +19,10 @@ public class Card {
         return symbol.getScore();
     }
 
+    public Symbol getSymbol() {
+        return symbol;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
