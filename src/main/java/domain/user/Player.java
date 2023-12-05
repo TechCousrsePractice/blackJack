@@ -1,8 +1,11 @@
 package domain.user;
 
-import domain.card.Card;
+import static domain.constant.GameConstant.SUM_OF_CARD_THRESHOLD;
 
+import domain.card.Card;
+import domain.util.ScoreCalculator;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,15 +16,34 @@ public class Player {
     private final double bettingMoney;
     private final List<Card> cards = new ArrayList<>();
 
-    public Player(String name, double bettingMoney) {
+    private Player(String name, double bettingMoney) {
         this.name = name;
         this.bettingMoney = bettingMoney;
+    }
+
+    public static Player of(String name, final double bettingMoney) {
+        return new Player(name, bettingMoney);
     }
 
     public void addCard(Card card) {
         cards.add(card);
     }
 
-    // TODO 추가 기능 구현
+    public boolean cardsExceedsThreshold() {
+        return cards.stream()
+                .mapToInt(Card::getScore)
+                .sum() >= SUM_OF_CARD_THRESHOLD;
+    }
 
+    public int produceScore() {
+        return ScoreCalculator.calculateScore(cards);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(cards);
+    }
 }
